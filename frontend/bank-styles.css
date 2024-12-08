@@ -1,0 +1,28 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.history {
+    flex: 2;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.actions {
+    flex: 1;                    /* Actions take less space */
+    display: flex;
+    flex-direction: column;     /* Stack withdraw and deposit vertically */
+    gap: 20px;                  /* Space between withdraw and deposit sections */
+}

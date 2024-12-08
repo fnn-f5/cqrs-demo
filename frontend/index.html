@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Bank</title>
+    <link rel="stylesheet" href="bank-styles.css">
+    <script src="functions.js"></script>
+</head>
+<body>
+<div id="container">
+<h1>Your Event-Sourced Bank</h1>
+<h2>View Account Details</h2>
+<form id="view-account-form">
+    <label for="view-account-id">Account ID</label><br>
+    <input type="text" id="view-account-id" required />
+    <button type="submit">Get Account</button>
+</form>
+<h2>Create New Account</h2>
+<form id="create-account-form">
+    <input type="text" id="new-account-id" placeholder="Account ID" required />
+    <button type="submit">Create Account</button>
+</form>
+<p id="status-message"></p>
+</div>
+
+<script>
+    document.getElementById("create-account-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const accountId = document.getElementById("new-account-id").value;
+        createAccount(accountId);
+    });
+    document.getElementById("view-account-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const accountId = document.getElementById("view-account-id").value;
+        window.location.href = `/account-details.html?account_id=${encodeURIComponent(accountId)}`
+    });
+</script>
+
+</body>
+</html>

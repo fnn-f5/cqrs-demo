@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="bank-styles.css">
+    <script src="account-details.js"></script>
+</head>
+<body>
+<div id="history">
+<h2>Account Details</h2>
+<div id="account-details"></div>
+</div>
+
+<div id="actions">
+<h2>Deposit Money</h2>
+<form id="deposit">
+    <label for="deposit-amount">Amount</label><br>
+    <input type="number" id="deposit-amount"/>
+    <button type="submit">Deposit</button>
+</form>
+
+<h2>Withdraw Money</h2>
+<form id="withdraw">
+    <label for="withdraw-amount">Amount</label><br>
+    <input type="number" id="withdraw-amount"/><br>
+    <label for="atm-id">ATM ID</label><br>
+    <input type="text" id="atm-id"/><br>
+    <button type="submit">Withdraw</button>
+</form>
+
+<h2>Write Check</h2>
+<form id="write-check">
+    <label for="check-amount">Amount</label><br>
+    <input type="number" id="check-amount"/><br>
+    <label for="check-number">Check Number</label><br>
+    <input type="text" id="check-number"/><br>
+    <button type="submit">Write Check</button>
+</form>
+<div id="redirect">
+    <button onclick="window.location.href = 'index.html';">Go Back</button>
+</div>
+</div>
+</body>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const accountId = urlParams.get("account_id")
+
+    if(!accountId)
+        document.body.innerHTML = "<h1>Error: Account ID not provided.</h1>";
+    else {
+        displayAccount(encodeURIComponent(accountId));
+    }
+
+    document.getElementById("deposit").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const amount = parseFloat(document.getElementById("deposit-amount").value);
+        await depositMoney(accountId, amount);
+        await displayAccount(encodeURIComponent(accountId));
+    });
+
+    document.getElementById("withdraw").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const amount = parseFloat(document.getElementById("withdraw-amount").value);
+        const atmId = document.getElementById("atm-id").value;
+        await withdrawMoney(accountId, amount, atmId);
+        await displayAccount(encodeURIComponent(accountId));
+    });
+
+    document.getElementById("write-check").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const amount = parseFloat(document.getElementById("check-amount").value);
+        const checkNumber = document.getElementById("check-number").value;
+        await writeCheck(accountId, amount, checkNumber);
+        await displayAccount(encodeURIComponent(accountId));
+    });
+</script>
+</html>
